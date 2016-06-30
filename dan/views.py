@@ -15,7 +15,7 @@ class UserForm(forms.Form):
     password = forms.CharField(label='密码',widget=forms.PasswordInput())
 
 #注册
-def regist(req):
+def reg(req):
     if req.method == 'POST':
         uf = UserForm(req.POST)
         if uf.is_valid():
@@ -27,7 +27,7 @@ def regist(req):
             return HttpResponse('regist success!!')
     else:
         uf = UserForm()
-    return render_to_response('regist.html',{'uf':uf}, context_instance=RequestContext(req))
+    return render_to_response('reg.html',{'uf':uf}, context_instance=RequestContext(req))
 
 #登陆
 def login(req):
