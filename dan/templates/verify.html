@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<div id="all" style="width:1000px">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+
+<div id="ONE" style="background-color:#FFA5b4;width:400px;float:left">
+
+
+    {% if user  %}
+    用户名：{{user.username}}<br>
+    QQ：{{user.qq}}<br>
+    手机：{{user.mobile}}<br>
+    <span><a title="logout" href="/logout">退出</a></span>
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif　%}
+
+</div>
+
+    <div id="TWO" style="background-color:#FFA500;width:400px;float:left">
+
+
+    {% if user %}
+
+    您已经登陆，对于登陆用户，此处应该显示系统消息！
+
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif %}
+
+</div>
+
+
+    <br>
+
+<div id="THREE" style="background-color:#FFD700; width:400px;float:left;">
+
+    {% if user %}
+    <nav>
+
+        <span><a title="登录" href="/login">登陆</a></span>
+        <span><a title="注册" href="/reg">注册</a></span>
+    </nav>
+   {% else %}
+    已经登陆，显示功能信息
+    {% endif %}
+
+</div>
+
+
+
+<div id="FOUR" style="background-color:#EE453E;  width:500px; float:left;">
+
+    <form name="regform2" method="post"  id="regform2id">
+
+
+            <tr >
+                <td >重要提示：</td>
+                <td >请上传本人的身份信息，提现若实名姓名与您申请提现的银行卡的开户姓名不一致，提现会失败</td>
+            </tr>
+
+            <tr>
+                <td >姓名：</td>
+                <td><input  name="truename" id="truename" value=""  type="text" placeholder="真实姓名"/></td>
+            </tr>
+
+            <tr>
+                <td  >身份证号码：</td>
+                <td><input  name="idno" id="idno" value="" type="text" /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div class="passport">
+
+                                    <b >身份证正面照</b>
+                                    <div ><img src="/images/pic_idc.gif" id="picidurl" ></div>
+                                    <span ><a >点击上传</a></span>
+
+                                    <p >
+                                        <span >拍摄说明:</span>
+       <span >
+       1、身份证正面照清晰，象素高<br>
+       2、身份证信息清晰，无遮挡，文字可辨<br>
+       </span>
+
+
+                                    </p>
+
+
+
+                                    <input type="hidden" value="" name="idurl" id="idurl" />
+                                </div>
+
+
+                                <div >
+                                    <b >手持身份证</b>
+                                    {% load staticfiles %}
+                                    <div ><img src={% static "images/pic_live.gif" %} id="picidcardurl" /></div>
+
+                                    <span ><a >点击上传</a></span>
+
+
+                                        <span >拍摄说明:</span>
+       <span >
+       1、五官清晰，双手露出完整手臂<br>
+       2、身份证信息清晰，无遮挡，文字可辨<br>
+       </span>
+
+
+
+
+
+                                <div >
+                                    <b >个人生活照</b>
+                                    <div ><img src="/static/images/pic_live.gif" id="piclifephoto"></div>
+                                    <span><a >点击上传</a></span>
+                                    <p >
+                                        <span>拍摄说明:</span>
+       <span >
+       1、需上传个人真实生活照片<br>
+       2、个人生活照与手持身份照为同一个人<br>
+       </span>
+                                    </p>
+
+                                    <input type="hidden" value="" name="lifephoto" id="lifephoto" />
+                                </div>
+
+
+
+
+
+                    <input type="submit" name="ctl00$cph$btnSubmit" value="提交实名认证" id="btnSubmit" class="btn" />
+
+
+
+
+        /////////////////////////////////////////////////
+
+    </form>
+
+
+
+
+</div>
+
+
+
+<script>
+
+
+    $(function() {
+        $("#submitformid").click(function()
+        {
+
+            if(!checkReg())
+            {alert("dianji");
+                $.post("/reg",
+                        $("#regformid").serialize(),
+                        function(data,status){
+                            alert("Data:" + data, "status:" + status);
+                        });
+            }
+
+        });
+
+    });
+
+
+    function checkReg()
+    {
+
+
+        if( $("#usernameid").val().length < 6  )
+        {
+
+            alert("用户名应该大于六位字符！")
+            alert($("#usernameid").val());
+            $("#usernameid").foucus()
+            return 1;
+        }
+
+
+        if( $("#pwdid").val().length < 6  )
+        {
+            alert("密码应该大于6位字符！")
+            return 2;
+        }
+
+        if( $("#pwdid").val() != $("#pwd2id").val())
+        {
+            alert("密码不一致！")
+            return 3;
+        }
+        if( $("#qqid").val().length < 6  )
+        {
+            alert("QQ号码太短，请输入您的QQ号码！")
+            return 4;
+        }
+        if( $("#mobileid").val().length !=11)
+        {
+            alert("请输入正确的手机号码")
+            return 5;
+        }
+        if( $("#mvcid").val().length != 6  )
+        {
+            alert("请输入正确的验证码！")
+            return 6;
+        }
+
+    }
+
+
+
+
+
+
+
+<script>
+
+
+    $(function() {
+        $("#login").click(function()
+        {
+
+
+
+            if(!checkSbm())
+            {
+                $("#three_indx_form001").submit();
+            }
+
+
+
+        });
+
+    });
+
+
+    function checkSbm()
+    {
+        if( $("#username").val().length < 6  )
+        {
+            alert("用户名应该大于六位字符！")
+
+            $("#username").foucus()
+            return 1;
+        }
+
+        if( $("#pwd").val().length < 6  )
+        {
+            alert("密码应该大于6位字符！")
+            return 2;
+        }
+
+
+
+    }
+
+</script>
+
+
+
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+    Copyright © W3CSchool.cc</div>
+
+</div>
+
+</body>
+</html>

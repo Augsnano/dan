@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<div id="all" style="width:1000px">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+
+<div id="ONE" style="background-color:#FFA5b4;width:400px;float:left">
+
+
+    {% if user  %}
+    用户名：{{user.username}}<br>
+    QQ：{{user.qq}}<br>
+    手机：{{user.mobile}}<br>
+    <span><a title="logout" href="/logout">退出</a></span>
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif　%}
+
+</div>
+
+    <div id="TWO" style="background-color:#FFA500;width:400px;float:left">
+
+
+    {% if user %}
+
+    您已经登陆，对于登陆用户，此处应该显示系统消息！
+
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif %}
+
+</div>
+
+
+    <br>
+
+<div id="THREE" style="background-color:#FFD700; width:400px;float:left;">
+
+    {% if user %}
+    <nav>
+
+        <span><a title="登录" href="/login">登陆</a></span>
+        <span><a title="注册" href="/reg">注册</a></span>
+    </nav>
+   {% else %}
+    已经登陆，显示功能信息
+    {% endif %}
+
+</div>
+
+
+<div id="FOUR" style="background-color:#EE453E;  width:500px; float:left;">
+
+    <form name="regform" method="post"  id="regformid" action="/reg">
+	<span>
+
+       您的身份：
+        <input type="radio" name="type" id="typeid" value="buyer" checked="checked">买家/试客
+            <input type="radio" name="type" id="typeid" value="saler">商家<br>
+
+            用户名:*<input type="text" name="username" id="usernameid"><br>
+            登陆密码:*<input type="password" name="pwd" id ="pwdid"><br>
+            确认密码:*<input type="password" name="pwd2" id="pwd2id"><br>
+            电子邮箱:<input type="email" name="email" id="emailid"><br>
+            QQ号码:*<input type="text" name="qq" id="qqid"><br>
+            微信号码:<input type="text" name="wechat" id="wechatid"><br>
+            手机:*<input type="text" name="mobile" id="mobileid"><br>
+        <!--验证码:*<input type="text" name="vc" id="vcid"><br>
+        -->
+            手机验证码:*<input type="text" name="mvc" id="mvcid">
+            <input type="button" name="gmvc", value="获取手机验证码" id="gmvcid"><br>
+
+            <input type="button" name ="submitform" id ="submitformid" value="提交注册">
+
+
+
+
+
+    </form>
+
+
+
+
+</div>
+
+
+
+<script>
+
+
+    $(function() {
+        $("#submitformid").click(function()
+        {
+
+            if(!checkReg())
+            {
+                $("#regformid").submit();
+            }
+
+        });
+
+    });
+
+
+    function checkReg()
+    {
+
+
+        if( $("#usernameid").val().length < 6  )
+        {
+
+            alert("用户名应该大于六位字符！")
+
+            $("#usernameid").foucus()
+            return 1;
+        }
+
+
+        if( $("#pwdid").val().length < 6  )
+        {
+            alert("密码应该大于6位字符！")
+            return 2;
+        }
+
+        if( $("#pwdid").val() != $("#pwd2id").val())
+        {
+            alert("密码不一致！")
+            return 3;
+        }
+
+
+        if( $("#qqid").val().length < 6 || isNaN($("#qqid").val()))
+        {
+            alert("QQ不正确，请输入您的QQ号码！")
+            return 4;
+        }
+
+
+        if( $("#mobileid").val().length !=11 || isNaN($("#mobileid").val()))
+        {
+            alert("请输入正确的手机号码")
+            return 5;
+        }
+{#        if( $("#mvcid").val().length != 6  )#}
+{#        {#}
+{#            alert("请输入正确的验证码！")#}
+{#            return 6;#}
+{#        }#}
+
+        return 0;
+    }
+
+</script>
+
+
+<script>
+
+
+    $(function() {
+        $("#login").click(function()
+        {
+
+
+
+            if(!checkSbm())
+            {
+                $("#three_indx_form001").submit();
+            }
+
+
+
+        });
+
+    });
+
+
+    function checkSbm()
+    {
+        if( $("#username").val().length < 6  )
+        {
+            alert("用户名应该大于六位字符！")
+
+            $("#username").foucus()
+            return 1;
+        }
+
+        if( $("#pwd").val().length < 6  )
+        {
+            alert("密码应该大于6位字符！")
+            return 2;
+        }
+
+
+
+    }
+
+</script>
+
+
+
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+    Copyright © W3CSchool.cc</div>
+
+</div>
+
+</body>
+</html>
