@@ -17,5 +17,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),                     #默认页
+    url(r'^login/$', views.login, name = 'login'),             #登录页
+    url(r'^regist/$',views.regist,name = 'regist'),            #注册页
+    url(r'^logout/$',views.logout,name = 'logout'),            #注销
 ]
