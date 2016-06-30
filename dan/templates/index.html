@@ -1,11 +1,126 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    this is index
-</head>
+<html>
 <body>
+<div id="all" style="width:1000px">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+
+<div id="ONE" style="background-color:#FFA5b4;width:400px;float:left">
+
+
+    {% if user  %}
+    用户名：{{user.username}}<br>
+    QQ：{{user.qq}}<br>
+    手机：{{user.mobile}}<br>
+    <span><a title="logout" href="/logout">退出</a></span>
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif　%}
+
+</div>
+
+    <div id="TWO" style="background-color:#FFA500;width:400px;float:left">
+
+
+    {% if user %}
+
+    您已经登陆，对于登陆用户，此处应该显示系统消息！
+
+    {% else %}
+    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
+    {% endif %}
+
+</div>
+
+
+    <br>
+
+<div id="THREE" style="background-color:#FFD700; width:400px;float:left;">
+
+    {% if user %}
+    <nav>
+
+        <span><a title="登录" href="/login">登陆</a></span>
+        <span><a title="注册" href="/reg">注册</a></span>
+    </nav>
+   {% else %}
+    已经登陆，显示功能信息
+    {% endif %}
+
+</div>
+
+
+<div id="FOUR" style="background-color:#FFD700; width:400px;float:left;">
+    <form name="three_indx_form1" method="post" id="three_indx_form001"  action="/login">
+
+        <label class="field">用户名:</label>
+        <input name="username" id="username"   type="text"
+               placeholder="手机号/邮箱/会员名"><br>
+
+        <label class="field">密码:</label>
+        <input name="pwd" id="pwd"   type="password"  placeholder="密码"><br>
+
+
+        <input type="button" name="login" value="用户登陆" id="login" >
+
+        <a href="/reg" >新用户注册</a>
+
+    </form>
+
+
+</div>
+
+
+<script>
+
+
+    $(function() {
+        $("#login").click(function()
+        {
+
+
+
+            if(!checkSbm())
+            {
+                $("#three_indx_form001").submit();
+            }
+
+
+
+        });
+
+    });
+
+
+    function checkSbm()
+    {
+        if( $("#username").val().length < 6  )
+        {
+            alert("用户名应该大于六位字符！")
+
+            $("#username").foucus()
+            return 1;
+        }
+
+        if( $("#pwd").val().length < 6  )
+        {
+            alert("密码应该大于6位字符！")
+            return 2;
+        }
+
+
+
+    }
+
+</script>
+
+
+
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+    Copyright © W3CSchool.cc</div>
+
+</div>
 
 </body>
 </html>
