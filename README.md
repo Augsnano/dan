@@ -8,12 +8,14 @@
 开发环境
 ====================================
 Python : 3.5.1
+
 django : 1.9.1
 
 
 依赖包
 ====================================
 pip install pillow
+
 pip install captcha
 
 Change Log
