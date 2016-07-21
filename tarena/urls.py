@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from dan import views
 
+# from django.contrib.auth import urls as auth_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dan/', include('dan.urls')),
+    url(r'^$', views.do_login, name='index'),                    # 默认页
+    url(r'^login/$', views.do_login, name='login'),              # 登录页
+    url(r'^reg/$', views.register, name='register'),          # 注册页
+    url(r'^logout/', views.do_logout, name='logout'),           # 注销
+    url(r'^member/', views.mem),
+    url(r'^captcha/', include('captcha.urls')),
 ]
+# urlpatterns += patterns('',
+#     url(r'^captcha/', include('captcha.urls')),
+# )
