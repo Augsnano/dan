@@ -1,126 +1,102 @@
 
-<!DOCTYPE html>
+
+<!doctype html>
 <html>
-<body>
-<div id="all" style="width:1000px">
-    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-
-
-<div id="ONE" style="background-color:#FFA5b4;width:400px;float:left">
-
-
-    {% if user  %}
-    用户名：{{user.username}}<br>
-    QQ：{{user.qq}}<br>
-    手机：{{user.mobile}}<br>
-    <span><a title="logout" href="/logout">退出</a></span>
-    {% else %}
-    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
-    {% endif　%}
-
-</div>
-
-    <div id="TWO" style="background-color:#FFA500;width:400px;float:left">
-
-
-    {% if user %}
-
-    您已经登陆，对于登陆用户，此处应该显示系统消息！
-
-    {% else %}
-    <h1 style="margin-bottom:0;">未登录用户没有显示内容</h1>
-    {% endif %}
-
-</div>
-
-
-    <br>
-
-<div id="THREE" style="background-color:#FFD700; width:400px;float:left;">
-
-    {% if user %}
-    <nav>
-
-        <span><a title="登录" href="/login">登陆</a></span>
-        <span><a title="注册" href="/reg">注册</a></span>
-    </nav>
-   {% else %}
-    已经登陆，显示功能信息
-    {% endif %}
-
-</div>
-
-
-<div id="FOUR" style="background-color:#FFD700; width:400px;float:left;">
-    <form name="three_indx_form1" method="post" id="three_indx_form001"  action="/login">
-
-        <label class="field">用户名:</label>
-        <input name="username" id="username"   type="text"
-               placeholder="手机号/邮箱/会员名"><br>
-
-        <label class="field">密码:</label>
-        <input name="pwd" id="pwd"   type="password"  placeholder="密码"><br>
-
-
-        <input type="button" name="login" value="用户登陆" id="login" >
-
-        <a href="/reg" >新用户注册</a>
-
-    </form>
-
-
-</div>
-
-
-<script>
-
-
-    $(function() {
-        $("#login").click(function()
-        {
-
-
-
-            if(!checkSbm())
-            {
-                $("#three_indx_form001").submit();
-            }
-
-
-
-        });
-
-    });
-
-
-    function checkSbm()
-    {
-        if( $("#username").val().length < 6  )
-        {
-            alert("用户名应该大于六位字符！")
-
-            $("#username").foucus()
-            return 1;
+<head>
+<meta charset="utf-8">
+<title>快助推</title>
+<meta name="keywords" content="快助推官网"/>
+<meta name="description" content=""/>
+     {% load staticfiles %}
+    <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/task/login.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.showLoading.min.js" %}"></script>
+    <script type="text/javascript">
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            location.href = "/app/";
         }
+    </script>
+</head>
 
-        if( $("#pwd").val().length < 6  )
-        {
-            alert("密码应该大于6位字符！")
-            return 2;
-        }
-
-
-
-    }
-
-</script>
-
-
-
-<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
-    Copyright © W3CSchool.cc</div>
-
+<body style="background:#fff">
+<!--头部 开始-->
+<div class="twp_header">
+ <div class="wd1200">
+  <h1 class="logo"><a href="/" title="快助推">快助推</a></h1>
+  <div class="reg_btn"><a href="/reg">免费注册</a></div>
+ </div>
+    
 </div>
+<!--头部 结束-->
 
+
+<!--主体 开始-->
+<div class="twp_wrap">
+ <div class="twp_slide">
+ <div class="wd1200">
+
+  <div class="login_pic"></div>
+
+{% if form.errors %}
+    <p style="color: red;">
+      Please correct the error{{ form.errors|pluralize }} below.
+    </p>
+{% endif %}
+
+  <form action="" method="post">
+  <div class="login_box">
+
+
+{#   <ul>#}
+{#    <li>#}
+    <div class="ipt_box">
+     <i class="ico user_ico"></i>
+        <div>
+
+            <table>
+            {{ lf.as_table }}
+            </table>
+
+            <br>
+    <span class="select_box"><input type="checkbox" name="chkRemember" id="chkRemember" value="1" checked="checked" style="width: 16px;height: 16px;" /></span>记住用户名 <span class="forgetpwd"><a href="ChangePassword">忘记密码？</a></span>
+
+       <input type="submit" value="立即登陆"  />
+
+   </ul>
+  </div>
+    </div>
+      </div>
+  </form>
+ </div>
+ </div>
+</div>
+<!--主体 结束-->
+
+<!--底部 开始-->
+<div class="twp_foot clearfix">
+ <div class="wd1000">
+  <div class="copyright">Copyright &copy; 2012-2020 kuaizhutui.com  快助推 版权所有</div>
+  <div class="footicon">
+    <a href="javascript:void(0)" class="logo1" rel="nofollow"></a>
+    <a href="javascript:void(0)" class="logo2" rel="nofollow"></a>  
+    <a href="javascript:void(0)" class="logo3" rel="nofollow"></a> 
+    <a href="javascript:void(0)" class="logo4" rel="nofollow"></a>        
+  </div>
+ </div>
+</div>
+<!--底部 结束-->
+<span style="display:none;">
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1259398474'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259398474%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+</span>
 </body>
 </html>

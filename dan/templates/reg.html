@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html>
+<title> real page</title>
 <body>
 <div id="all" style="width:1000px">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
@@ -53,9 +54,9 @@
 
 <div id="FOUR" style="background-color:#EE453E;  width:500px; float:left;">
 
-    <form name="regform" method="post"  id="regformid" action="/reg">
+    <form name="regform" method="post"  id="regformid" >
 	<span>
-
+    {% csrf_token %}
        您的身份：
         <input type="radio" name="type" id="typeid" value="buyer" checked="checked">买家/试客
             <input type="radio" name="type" id="typeid" value="saler">商家<br>
@@ -72,7 +73,7 @@
             手机验证码:*<input type="text" name="mvc" id="mvcid">
             <input type="button" name="gmvc", value="获取手机验证码" id="gmvcid"><br>
 
-            <input type="button" name ="submitform" id ="submitformid" value="提交注册">
+            <input type="submit" name ="submitform" id ="submitformid" value="提交注册">
 
 
 
@@ -201,7 +202,7 @@
 
 
 <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
-    Copyright © W3CSchool.cc</div>
+    Copyright © W3CSchool.cc asdadfsdfasdfasfs</div>
 
 </div>
 

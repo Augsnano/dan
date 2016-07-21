@@ -1,0 +1,105 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>快助推官网
+    会员提示 - 
+</title>
+    {% load staticfiles %}
+    <meta name="keywords" content="" />
+    <meta name="description" content=" " />
+    <link href="{% static "css/common.css" %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static "css/bootstrap.min.css" %} "></script>
+    <script type="text/javascript" src="{% static "js/jquery.showLoading.min.js" %}"></script>
+    <script type="text/javascript"  src="{% static "js/artDialog.js" %}"></script>
+    <link href="{% static "css/dialog.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static "js/common.js" %}"></script>
+    <meta property="qc:admins" content="1761377451264567763757" />
+    
+    <link href="{% static "css/reg.css" %}" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<!--头部 开始-->
+
+<div class="twp-header">
+ <div class="w1200">
+     <h1 class="logo"><a href="/" title="快助推">快助推</a></h1>
+     
+      <div class="reg_btn"><a href="/member/">会员中心</a></div>
+     
+      
+ </div>
+</div>
+
+
+
+
+    <!--买家注册 开始-->
+    <div class="wd960">
+        <div class="role">
+            <span>买家注册</span>
+        </div>
+
+        <div class="reg-step-no4">
+            <div class="reg-step seller-step clearfix">
+                <ul class="cols5">
+                    <li class="step_1">
+                        <div><i>1</i>填写账户信息<span></span></div>
+                    </li>
+                    <li class="step_3">
+                        <div><i>2</i>绑定旺旺号<span></span></div>
+                        <em class="f1"></em></li>
+                    <li class="step_4">
+                        <div><i>3</i>注册成功<span></span></div>
+                        <em class="f2"></em></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="success">
+            <h2><i></i>
+                {{ username }} :恭喜您，注册成功！
+
+            </h2>
+            <div class="success-tip">
+                
+                <p>请先提交实名认证相关资料，再申请视频认证(可以接需要视频认证的任务，提高您的信用等级和可信度)，<span class="c_09">认证通过率100%</span></p>
+
+                <p>
+                    添加在线客服，参与视频认证。
+                </p>
+{#                #}
+{#                <p>在线客服：#}
+{#                    <script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzgwMDEzMzU3N18zMjY0OTZfODAwMTMzNTc3Xw"></script>#}
+{#                </p>#}
+            </div>
+            <div class="scan-code">
+{#                <img src="http://static.tuiwangpu.com/images/scan-code.jpg" alt="扫一扫二维码，加我QQ"></div>#}
+            <div class="operate"><a href="/member/" class="login-btn">会员中心</a><a href="/member/accountsec/truenameset.aspx" class="login-btn">马上去实名认证</a><a href="/" class="gohome-btn">返回首页</a>
+        </div>
+
+    </div>
+    <!--买家注册 结束-->
+
+
+
+
+<!--底部开始-->
+<div class="footer">
+ <div class="wd1200">
+   <p>CopyRight © 2012-2020 kuaizhutui.com 快助推版权所有</p>
+ </div>
+</div>
+<!--底部结束-->
+{#<span style="display:none;">#}
+{#    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1259398474'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259398474%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>#}
+{#</span>#}
+</body>
+</html>

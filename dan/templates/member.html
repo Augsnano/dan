@@ -1,0 +1,553 @@
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>会员中心 - 快助推</title>
+     {% load staticfiles %}
+    <link href="{% static "css/common.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "css/buyers.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+     <script type="text/javascript" src="{% static "js/common.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/formvalidator.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/formvalidatorregex.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.showLoading.min.js" %}"></script>
+    <script type="text/javascript"  src="{% static "js/artDialog.js" %}"></script>
+    <script src="{% static "js/task/membermsg.js" %}"></script>
+    <link href="{% static "css/dialog.css" %}" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $(function () {
+        SetMenu("home");
+    });
+</script>
+<script type="text/javascript" src="{% static "js/DatePicker/WdatePicker.js" %}"></script>
+<script type="text/javascript" src="{% static "js/highcharts/highcharts.js" %}"></script>
+<script type="text/javascript" src="{% static "js/highcharts/data.js" %}"></script>
+
+    <script type="text/javascript">
+            function SetMenu(topmenu, leftmenu) {
+                $("#headmenu li[nav='" + topmenu + "']").addClass("selected");
+                if (leftmenu != "") {
+                    $("#leftmenu li[nav='" + leftmenu + "']").addClass("selected");
+                }
+            }
+    </script>
+</head>
+<body>
+    <!--头部 开始-->
+
+ <div class="topbar">
+  <div class="wd1200">
+    <div class="site-nav-l">
+     <span class="welcome">欢迎您，{{ username }}</span>
+{#     <span class="ml10"><a href="/member/message/sysmsg.aspx">消息中心</a>[ <a href="/member/message/sysmsg.aspx">公告</a>(<em class="c_f0" id="mnotify">..</em>)，<a href="/member/message/notice.aspx">通知</a>(<em class="c_f0" id="mnotice">..</em>) ]</span>#}
+    <span class="ml10"><a href="/logout" class="ml10">退出</a></span>
+    </div>
+    <div class="site-nav-r">
+
+
+         <a href="/union.aspx"  target="_blank"  style="color:red;">推广赚佣金</a>
+         <span class="spacing"></span>
+     <a href="/help/help.aspx"  target="_blank">帮助中心</a>
+    </div>
+  <!-- 客服悬浮 开始-->
+
+<div class="help-service">
+    <a href="javascript:" class="h-s-i help-service-icon02" title="客服中心">客服中心</a>
+
+    <a href="#" class="h-s-i help-service-icon03" title="返回顶部">返回顶部</a>
+    <ul style="display: none;" class="help-service-box">
+        <h4>联系我们</h4>
+        <dl>
+            <dt>
+                <span>在线客服</span>
+                <p>800133577</p>
+            </dt>
+        </dl>
+        <dl>
+            <dt>
+{#                <p style="margin-left: 4px;">扫描二维码添加</p>#}
+{#                <em>#}
+{#                    <img src="{% static "images/yxkf_qq.png" %}" alt="在线客服" title="扫描二维码添加在线客服" width="100" height="100" />#}
+{#                </em>#}
+            </dt>
+        </dl>
+        <dl>
+            <p>上班时间 9:00-22:30</p>
+        </dl>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".help-service").bind({
+            "mouseover": function () {
+                $("ul.help-service-box").show();
+            },
+            "mouseout": function () {
+                $("ul.help-service-box").hide();
+            }
+        });
+        hlpbox();
+        $(window).resize(function () {
+            hlpbox();
+        });
+    });
+    function hlpbox() {
+        var wid = $(window).width();
+        if (wid >= 1380) {
+            $(".help-service").css("right", -90);
+        }
+        else if (wid < 1380) {
+            var fixwid = (1380 - wid) / 2;
+            if (fixwid >= 90) {
+                $(".help-service").css("right", 0);
+            } else {
+                $(".help-service").css("right", -90 + fixwid);
+            }
+        }
+    }
+</script>
+
+  <!-- 客服悬浮 结束-->
+  </div>
+ </div>
+
+ <div class="buyers-header">
+  <div class="wd1200">
+      <h1 class="logo"><a href="/member/" title="快助推" target="_blank">快助推</a></h1>
+{#      <span style="float: right;margin-right:5px;">#}
+{#          用手机或iPad平板电脑扫描右侧二维码#}
+{#          <img src="{% static "images/twp.png" %}" width="100" height="100" />#}
+{#      </span>#}
+  </div>
+
+ </div>
+
+ <div class="buyers-nav">
+  <div class="wd1200">
+   <ul class="buyers-menu" id="headmenu">
+    <li nav="home" ><a href="/member/">首页</a></li>
+    <li nav="dt"><a href="/member/taskHall/">任务大厅</a></li>
+    <li nav="sc"><a href="/member/taskHall/inTask.aspx">买家中心</a></li>
+    <li nav="account"><a href="/member/account/balancedetails.aspx">我的资产</a></li>
+    <li nav="info"><a href="/member/info/userinfo.aspx">实名认证</a></li>
+    <li ><a href="/help/helpdetail-10001-106.aspx" target="_blank" style="color: #fff000;">开通立返</a></li>
+{##}
+{#    <li class="tww"><i></i><a href="/app/" target="_blank">推旺铺APP下载</a></li>#}
+   </ul>
+  </div>
+ </div>
+<!--头部 结束-->
+
+ <!--发布任务 开始-->
+
+
+
+
+<script src="{% static "js/task/homebuy.js" %}"></script>
+
+ <div class="wrap clearfix">
+     <div class="mt10">
+
+<style>
+.tiro-konw{width:100%;font-size:12px;}
+.tiro-konw .tiro-tit{background:#fff1dc;height:29px;line-height:29px;border:1px solid #ffe5bd;border-bottom:none;}
+.tiro-konw .tiro-tit h1{float:left;color:#ff4400;font-size:16px;margin:0;padding:0 0 0 10px;}
+.tiro-konw .tiro-tit span{float:right;margin-right:8px;color:#470707;}
+.tiro-konw .tiro-box{clear:both;color:#4e4d4b;padding:6px 10px;border:1px solid #ffe5bd;border-bottom:none;}
+.tiro-konw .tiro-box p{ line-height: 25px;font-size: 14px;}
+.tiro-konw .tiro-box .tiro-hide{display:none;}
+.tiro-control{position:relative;top:-1px;border-top:1px solid #ffe5bd;text-align:center;transition: border-color .15s ease-in-out;}
+.tiro-control i{background-image:url({% static "images/tiro.png" %});background-repeat:no-repeat;}
+.tiro-control .click-btn{display:inline-block;position:relative;margin-top:-1px;height:28px;line-height:28px;padding:0 40px 0 20px;border:1px solid #ffe5bd;border-top:none;background:#fff;cursor:pointer;color:#333;}
+.tiro-control .click-btn i{position:absolute;right:16px;top:4px;display:inline-block;width:20px;height:20px;background-position:4px 7px;}
+.tiro-control .open-btn i{background-position:4px -27px;}
+.tiro-control:hover{border-top:1px solid #e4393c;}
+.tiro-control:hover .click-btn{border:1px solid #e4393c;border-top:none;color:#e4393c;}
+.tiro-control:hover .click-btn i{background-position:4px -10px;}
+.tiro-control:hover .open-btn{border:1px solid #e4393c;border-top:none;color:#e4393c;}
+.tiro-control:hover .open-btn i{background-position:4px -44px;}
+.tiro-konw .cbopt{clear:both;color:#4e4d4b;padding:10px 10px;border-left:1px solid #ffe5bd;border-right:1px solid #ffe5bd;display: none}
+
+.aui_content p{ line-height: 25px;font-size: 14px;}
+</style>
+
+<div class="tiro-konw">
+ <div class="tiro-tit"><h1>重要说明</h1><span>我们的平台商家是100%经过店铺认证！</span></div>
+ <div class="tiro-box">
+  <p>1、禁止用旺旺号向商家咨询推旺铺平台或刷单相关的问题，如有问题联系客服QQ，严重者一律封号；</p>
+  <p>2、旺旺号一旦被淘宝关闭评价入口，接取的未完成的任务佣金(旺点)一律返给商家；</p>
+  <p>3、禁止使用店铺优惠券、红包、淘金币、天猫积分、返利网、淘客、聚来宝，淘宝客等，扣除任务全部佣金，产生的推广佣金从商品的本金中扣除，严重者一律封号；</p>
+  <p>4、任务中没有标识的信用卡、淘宝信用支付、花呗、余额宝分期付款，禁止使用，产生的手续费由买家承担，手续费从商品本金中扣除，严重者一律封号；</p>
+  <p class="tiro-hide">5、在淘宝上没有按实际物流到了(即<font color="red">显示签收</font>)，就提前收货扣除全部佣金。如果快递<span class="c_f0">物流出现卡住或没有物流信息</span>的情况，淘宝上发货<span class="c_f0">超过了7天</span>，即<span class="c_f0">第8天</span>应允许买家在淘宝确认收货和好评，这种情况不算买家提前收货；</p>
+  <p class="tiro-hide">6、追评任务【<font color="red">交易完成，等待接手方追评</font>】接手方到了追评时间，默认操作时间<font color="red">24小时</font>，若再超出默认时间<font color="red">24小时</font>还未追评，系统结束任务；</p>
+  <p class="tiro-hide">7、为了更好体验接任务，推旺铺官方指定：<span class="c_f0">Google浏览器</span>(<a href="http://rj.baidu.com/soft/detail/14744.html" target="_blank">点这里下载</a>)和<span class="c_f0">火狐浏览器</span>(<a href="http://rj.baidu.com/soft/detail/11843.html" target="_blank">点这里下载</a>)，其他浏览器禁止使用，否则后果自行承担；</p>
+{#  <p class="tiro-hide">8、本机电脑可以安装<span class="c_f6">防止淘宝客的插件</span>(<a href="/files/推旺铺屏蔽淘宝客小工具.rar" target="_blank">点这里下载</a>)；<span class="c_f6">清理浏览缓存和Cookies工具</span>(<a href="http://rj.baidu.com/soft/detail/10179.html" target="_blank">点这里下载</a>)，可清理淘宝客的Cookies信息。</p>#}
+ </div>
+ <div class="cbopt"><input type="checkbox" name="cbTips" id="cbTips" />下次不再自动展开!</div>
+ <div class="tiro-control">
+  <span class="click-btn">展开<i></i></span>
+<!--  <span class="click-btn open-btn">收缩<i></i></span>-->
+ </div>
+</div>
+
+<script type="text/javascript" src="{% static "js/jquery.cookie.js" %}"></script>
+<script type="text/javascript">
+    $(function () {
+
+            var tctips = $.cookie("cbTipsdig22940");
+            if (tctips != "1") {
+                var cbhtml = '<p style="margin-top:20px;color:red;"><input type="checkbox" name="cbTipsdig" id="cbTipsdig" />下次不再自动弹出</p>';
+                artDialog({
+                    title: '重点说明',
+                    id: 'twptips',
+                    content: $('.tiro-konw .tiro-box').html() + cbhtml,
+                    width: 1100,
+                    init: function () {
+                        var that = this, i = 60;
+                        var fn = function () {
+                            that.title("重点说明【" + i + "秒后自动关闭】");
+                            !i && that.close();
+                            i--;
+                        };
+                        var timer = setInterval(fn, 1000);
+                        fn();
+                        $("#cbTipsdig").click(function () {
+                            if (this.checked) {
+                                $.cookie("cbTipsdig22940", "1", { expires: 1000 });
+                            } else {
+                                $.cookie("cbTipsdig22940", "0", { expires: 1000 });
+                            }
+                        });
+                    },
+                    ok: function () {
+                        return true;
+                    }
+                });
+            }
+
+
+        $('.tiro-konw .tiro-control .click-btn').click(function() {
+            var t = $(this).text();
+            if (t == "展开") {
+                $('.tiro-konw .tiro-box p').removeClass("tiro-hide");
+                $(this).addClass("open-btn").html("收缩<i></i>");
+                $('.tiro-konw .cbopt').show();
+            } else {
+                $('.tiro-konw .tiro-box p').each(function (i) {
+                    if (i > 3) {
+                        $(this).addClass("tiro-hide");
+                    }
+                });
+                $(this).removeClass("open-btn").html("展开<i></i>");
+                $('.tiro-konw .cbopt').hide();
+            }
+        });
+        $('#cbTips').click(function () {
+            if (this.checked) {
+                $.cookie("cbTips22940", "1", { expires: 1000 });
+            } else {
+                $.cookie("cbTips22940", "0", { expires: 1000 });
+            }
+        });
+        if ($.cookie("cbTips22940") == "1") {
+            $('.tiro-konw .tiro-box p').each(function(i) {
+                if (i > 3) {
+                    $(this).addClass("tiro-hide");
+                }
+            });
+            $(".tiro-konw .tiro-control .click-btn").removeClass("open-btn").html("展开<i></i>");
+            $('#cbTips').attr("checked", "checked");
+            $('.tiro-konw .cbopt').hide();
+        } else {
+            $('.tiro-konw .tiro-box p').removeClass("tiro-hide");
+            $(".tiro-konw .tiro-control .click-btn").addClass("open-btn").html("收缩<i></i>");
+            $('.tiro-konw .cbopt').show();
+        }
+    });
+</script>
+
+     </div>
+
+
+
+
+  <div class="count_box clearfix">
+   <div class="count_title">
+    <div class="f_l">
+     <h2>统计概况</h2>
+    </div>
+    <div class="f_r" id="memdata">
+     <span class="filter">
+     <a href="#this" day="1">今日</a>
+     <a href="#this" day="2">昨日</a>
+     <a href="#this" class="selected" day="3">周</a>
+     <a href="#this" day="4">月</a>
+     </span>
+     <span class="">按日期筛选 <input type="text" value="2016-7-4" name="tdate" id="tdate" class="Wdate" style="width: 90px;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd', onpicked: pickedFunc });"  /></span>
+    </div>
+   </div>
+  </div>
+  <div class="" id="meminfo">
+   <div class="count_tab">
+    <ul class="count6 clearfix">
+     <li>
+      <div class="count_block">
+       <p class="blue">
+        <span>任务数（个）</span>
+        <b tg="tasknum">-</b>
+       </p>
+       <dl class="clearfix">
+        <dt tg="tbtasknum"><label>淘宝</label><em>-</em></dt>
+        <dt tg="jdtasknum"><label>京东</label><em>-</em></dt>
+        <dt tg="flowtasknum"><label>流量</label><em>-</em></dt>
+       </dl>
+      </div>
+     </li>
+     <li>
+      <div class="count_block">
+       <p class="blue">
+        <span>垫付本金（元）</span>
+        <b tg="taskmoney">-</b>
+       </p>
+       <dl class="clearfix">
+        <dd tg="tbmoney"><label>淘宝</label><em>-</em></dd>
+        <dd tg="jdmoney"><label>京东</label><em>-</em></dd>
+       </dl>
+      </div>
+     </li>
+     <li>
+      <div class="count_block">
+       <p class="blue">
+        <span>任务佣金（元）</span>
+        <b tg="taskpoint">-</b>
+       </p>
+       <dl class="clearfix">
+        <dt tg="tbpoint"><label>淘宝</label><em>-</em></dt>
+        <dt tg="jdpoint"><label>京东</label><em>-</em></dt>
+        <dt tg="flowpoint"><label>流量</label><em>-</em></dt>
+       </dl>
+      </div>
+     </li>
+     <li>
+      <div class="count_block">
+       <p class="blue">
+        <span>推广奖励（元）</span>
+        <b tg="tgmoney">0.00</b>
+       </p>
+       <dl class="clearfix">
+        <dd tg="buyermoney"><label>买家</label><em>0.00</em></dd>
+        <dd tg="sellmoney"><label>卖家</label><em>0.00</em></dd>
+       </dl>
+      </div>
+     </li>
+     <li>
+      <div class="count_block">
+       <p class="orange">
+        <span>预计收益（元）</span>
+        <b tg="allpoints">0.00</b>
+       </p>
+       <dl class="clearfix">
+
+       </dl>
+      </div>
+     </li>
+     <li>
+      <div class="count_block">
+       <p class="blue">
+        <span>账户余额（元）</span>
+        <b tg="balance">0.00</b>
+       </p>
+       <dl class="clearfix">
+        <label class="pt10">冻结<span tg="freebalance">0.00</span>元</label>
+       </dl>
+      </div>
+     </li>
+    </ul>
+   </div>
+  </div>
+
+  <div class="count_frame clearfix mt15">
+   <div class="count_left">
+
+    <div class="task_count">
+     <div class="task_count_tit">
+      <div class="f_l">
+       <h2 class="selected">近30天任务趋势</h2>
+
+      </div>
+         <div class="f_r"><input type="text" value="2016-6-4" name="tbdate" id="tbdate" class="Wdate" style="width: 90px;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd', maxDate: '#F{$dp.$D(\'tedate\')}' });" /> 至 <input type="text" value="2016-7-4" name="tedate" id="tedate" class="Wdate" style="width: 90px;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd', minDate: '#F{$dp.$D(\'tbdate\')}' });" /> <input type="button" name="btns" id="btns" style="width:40px;" value="确认" /></div>
+     </div>
+     <div class="task_count_box">
+      <div class="dis clearfix" id="container" style="min-width: 845px; height: 252px; margin: 0 auto"></div>
+     </div>
+    </div>
+    <div class="count_grid clearfix mt15">
+     <div class="count_grid_left">
+      <div class="maihao_count">
+       <div class="count_heading"><h2><em>买号统计</em></h2><span><a href="buyertj.aspx" target="_blank">更多统计</a></span></div>
+       <div class="maihao_count_tab">
+            <table>
+              <tr>
+                <th class="count_text">淘宝买号</th>
+                <th>完成任务数(个)</th>
+                <th>赚取佣金(元)</th>
+              </tr>
+
+                      <tr>
+                        <td class="count_text">难求红颜知己</td>
+                        <td>13</td>
+                        <td>102.38</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">pcnwq</td>
+                        <td>2</td>
+                        <td>13.65</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">xixixib</td>
+                        <td>1</td>
+                        <td>9.41</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">水云间云</td>
+                        <td>1</td>
+                        <td>6.91</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">彪路历程</td>
+                        <td>1</td>
+                        <td>6.24</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">zsks1985</td>
+                        <td>1</td>
+                        <td>6.24</td>
+                      </tr>
+
+                      <tr>
+                        <td class="count_text">zcx0329</td>
+                        <td>1</td>
+                        <td>6.24</td>
+                      </tr>
+
+            </table>
+       </div>
+      </div>
+     </div>
+     <div class="count_grid_right">
+      <div class="task_date_count">
+       <div class="count_heading"><h2><em>任务统计</em></h2><span><a href="buyertasktj.aspx"  target="_blank">更多统计</a></span></div>
+       <div class="task_date_tab clearfix" id="taskNum">
+        <div class="daren_cutover">
+         <dl>
+          <dd class="selected" t="tb">淘宝</dd>
+          <dd t="jd">京东</dd>
+         </dl>
+       </div>
+        <ul>
+         <li task="ing"><a href="/member/taskHall/inTask.aspx"><em>0</em><p>进行中任务</p></a></li>
+         <li task="shouhuo"><a href="/member/taskHall/inTask.aspx?s=3&t=1"><em>0</em><p>待收货任务</p></a></li>
+         <li task="tousu"><a href="/member/taskHall/inTask.aspx?s=7&t=1"><em>0</em><p>申诉中任务</p></a></li>
+         <li task="fininsh"><a href="/member/taskHall/inTask.aspx?t=3"><em>0</em><p>已完成任务</p></a></li>
+         <li task="all"><a href="/member/taskHall/inTask.aspx?t=4"><em>0</em><p>全部任务</p></a></li>
+         <li task="url"><a href="/member/taskHall/"><em class="btn"></em><p>我要去接任务</p></a></li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+
+   </div>
+   <div class="count_right">
+    <div class="notice">
+     <div class="notice_tit"><h2 class="selected">网站公告</h2><span style="float:right;"><a href="/about/notice.aspx" target="_blank">更多</a></span></div>
+     <div class="notice_tab">
+      <ul class="dis">
+
+                  <li><em>2016-06-17</em><a href="/about/noticedetail-300.aspx" title="关于平台上线“多链接”、“搜A拍B”及商家自动审核等功能通知" target="_blank">关于平台上线“多链接”、“搜A拍B...</a></li>
+
+                  <li><em>2016-06-16</em><a href="/about/noticedetail-299.aspx" title="【紧急通知】推旺铺商家在线充值支付宝账号变更说明" target="_blank">【紧急通知】推旺铺商家在线充值支...</a></li>
+
+                  <li><em>2016-06-07</em><a href="/about/noticedetail-298.aspx" title="【我出“现金”，你拿“奖励”】第一期中奖名单公布了" target="_blank">【我出“现金”，你拿“奖励”】第...</a></li>
+
+                  <li><em>2016-06-01</em><a href="/about/noticedetail-293.aspx" title="关于推旺铺WAP手机版关闭停止使用的通知" target="_blank">关于推旺铺WAP手机版关闭停止使用...</a></li>
+
+                  <li><em>2016-06-01</em><a href="/about/noticedetail-292.aspx" title="推旺铺2016年端午节放假通知" target="_blank">推旺铺2016年端午节放假通知</a></li>
+
+                  <li><em>2016-05-20</em><a href="/about/noticedetail-291.aspx" title="关于平台新增“阿里巴巴”任务单的公告" target="_blank">关于平台新增“阿里巴巴”任务单的...</a></li>
+
+                  <li><em>2016-04-28</em><a href="/about/noticedetail-146.aspx" title="2016五一期间商家审核任务"确认付款"、“确认完成任务"操作时间的调整公告" target="_blank">2016五一期间商家审核任务"确认付...</a></li>
+
+                  <li><em>2016-04-28</em><a href="/about/noticedetail-145.aspx" title="推旺铺苹果iOS体验版上线啦！" target="_blank">推旺铺苹果iOS体验版上线啦！</a></li>
+
+      </ul>
+     </div>
+    </div>
+
+
+    <div class="twp_help">
+     <div class="twp_help_tit"><h2>帮助中心</h2><span><a href="/help/help.aspx" target="_blank">更多</a></span></div>
+     <div class="twp_help_tab">
+      <ul>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-42.aspx" title="任务图标的详细解释" target="_blank">任务图标的详细解释</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-33.aspx" title="差不多明白了，那我接到任务后要怎么操作呢？" target="_blank">差不多明白了，那我接到任务后要怎...</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-27.aspx" title="接手任务需要注意些什么？" target="_blank">接手任务需要注意些什么？</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-26.aspx" title="接手任务的准备工作？" target="_blank">接手任务的准备工作？</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-25.aspx" title="我给对方刷了一个，我在淘宝付款给他了，我的钱怎么办，上哪去了？" target="_blank">我给对方刷了一个，我在淘宝付款给...</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-24.aspx" title="什么是买号？要怎么捆绑？" target="_blank">什么是买号？要怎么捆绑？</a></li>
+
+                  <li><em>2014-12-04</em><a href="/help/helpdetail-10033-23.aspx" title="接手任务是什么意思？" target="_blank">接手任务是什么意思？</a></li>
+
+                  <li><em>2014-12-05</em><a href="/help/helpdetail-10033-64.aspx" title="我要举报" target="_blank">我要举报</a></li>
+
+                  <li><em>2016-06-02</em><a href="/help/helpdetail-10040-296.aspx" title="“问大家”手机版" target="_blank">“问大家”手机版</a></li>
+
+                  <li><em>2016-06-02</em><a href="/help/helpdetail-10033-294.aspx" title="“问大家”PC版" target="_blank">“问大家”PC版</a></li>
+
+      </ul>
+     </div>
+    </div>
+
+
+   </div>
+  </div>
+
+ </div>
+
+
+ <!--发布任务 结束-->
+
+
+ <!--底部 开始-->
+       </div>
+ </div>
+
+<!--底部 开始-->
+ <div class="footer">
+  <div class="wd1200">
+   <p>CopyRight © 2012-2020 kuaizhutui.com 快助推版权所有</p>
+  </div>
+ </div>
+ <!--底部 结束-->
+<span style="display:none;">
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1259398474'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259398474%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+</span>
+
+ <!--底部 结束-->
+</body>
+</html>

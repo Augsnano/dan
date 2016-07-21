@@ -1,21 +1,23 @@
-from __future__ import unicode_literals
+#coding:utf8
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.encoding import python_2_unicode_compatible
 
 # Create your models here.
 #用户表
-class User(models.Model):
-    UserName = models.CharField(u'用户名', max_length=100)
-    PassWord = models.CharField(u'密码', max_length=64)
-    Mail = models.CharField(u'邮箱', max_length=64)
-    VerifiedMail = models.CharField(u'邮箱是否认证',default=0, max_length=1)                 #默认是0，未认证， 1：已认证
-    QQ = models.CharField(u'qq号', max_length=16)
-    WeChat =models.CharField(u'微信账号', max_length=100)
-    Mobile =models.CharField(u'手机号', primary_key=True, max_length=11)
-    Status =models.CharField(u'状态', default='0', max_length=1)                             #默认是0，未认证， 1：身份证认证， 2：视频认证
-    RefUserID = models.CharField(u'推荐人ID', max_length=20)
+@python_2_unicode_compatible
+class MyUser(AbstractUser):
+    qq = models.CharField(u'qq号', max_length=16)
+    weChat =models.CharField(u'微信账号', max_length=100)
+    mobile =models.CharField(u'手机号', primary_key=True, max_length=11)
+    identicard =models.BooleanField(u'身份证认证', default=False)                             #默认是0，未认证， 1：身份证认证， 2：视频认证
+    refuserid = models.CharField(u'推荐人ID', max_length=20)
     Level = models.CharField(u'用户等级', default='0', max_length=2)                        #默认是0，用户等级0-9
-    VerifiedViedo = models.CharField(u'视频认证', default='0', max_length=2)                #默认是0，未认证。 1：已认证
-    Type =models.CharField(u'用户类型', default='0', max_length=2)                          #默认是0，未认证， 1：刷手 2：商家
+    vevideo = models.BooleanField(u'视频认证', default=False)                      #默认是0，未认证。 1：已认证
+    Type =models.CharField(u'用户类型', default='0', max_length=1)                          #默认是0，未认证， 1：刷手 2：商家
+
+    def __str__(self):
+        return self.username
 
 #经济表
 class Economy(models.Model):

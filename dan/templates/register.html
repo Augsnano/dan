@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>快助推官网
+    会员注册 - 
+</title>
+{% load staticfiles %}
+    <meta name="keywords" content="" />
+    <meta name="description" content=" " />
+    <link href="{% static "css/common.css" %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static "js/jquery.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/jquery.showLoading.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/artDialog.js" %}"></script>
+    <link href="{% static "css/dialog.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static "js/common.js" %}"></script>
+    <meta property="qc:admins" content="1761377451264567763757" />
+    
+    <link href="{% static "css/reg.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static "js/formvalidator.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/formvalidatorregex.js" %}"></script>
+{#    <script type="text/javascript" src="{% static "js/reg.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/checkpwd.js" %}"></script>#}
+
+</head>
+<body>
+
+<!--头部 开始-->
+
+<div class="twp-header">
+ <div class="w1200">
+     <h1 >快助推 - 专业的刷单平台</h1>
+     
+      <div class="reg_btn"><a href="/">返回登录</a></div>
+     
+      
+ </div>
+</div>
+{% if us.errors %}
+    <p style="color: red;">
+      Please correct the error{{ us.errors|pluralize }} below.
+    </p>
+  {% endif %}
+  {% for item in error %}
+    <p style="color:red;">{{item}}</p>
+  {% endfor %}
+
+ <!--注册 开始-->
+ <form name="aspnetForm" method="post">
+ <div class="wd960">
+ <div class="desc"><h2>新会员注册</h2><span></span></div>
+ <div class="reg-cont" style="position:relative;">
+  
+<div style="position:absolute;right: 0;">
+     <img src="{% static "images/regrz.jpg" %}" />
+</div>
+
+  <div class="credit-tip credit-tip1">
+      <span flag="1">本平台大量试用商品、商品价值高，推广期间注册入会免收会员费！</span>
+      <span flag="2" style="display:none;">我们的平台买家/试客是100%经过实名认证（包括身份证、手持身份证、生活照），部分用户通过在线视频认证！</span>
+  </div>
+     <table>
+      {{ uf.as_table }}
+    </table>
+
+  <div class="submit-box">
+      <input type="submit" name="btnSubmit" value="确认并注册" id="btnSubmit" class="w200 h35" />
+  </div>         
+ </div>
+ </div>
+</form>
+ <!--注册 结束-->
+
+
+<!--底部开始-->
+<div class="footer">
+ <div class="wd1200">
+   <p>CopyRight © 2012-2020 kuaizhutui.com 快助推版权所有</p>
+ </div>
+</div>
+<!--底部结束-->
+{#<span style="display:none;">#}
+{#    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1259398474'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259398474%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>#}
+{#</span>#}
+</body>
+</html>
